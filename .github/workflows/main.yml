@@ -1,0 +1,17 @@
+name: JSON Merge
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A test job to merge two local json files
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Merge JSON files using defaults
+        uses: ./ # Uses an action in the root directory
+        id: merge
+
+
