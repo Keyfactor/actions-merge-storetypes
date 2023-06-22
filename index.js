@@ -14,31 +14,17 @@ try {
     const master = JSON.parse(fs.readFileSync(libraryFile))
 
     console.log('Library/Master file: ' + libraryFile);
-    //console.log(master);
     console.log('newData file: ' + inputFile);
-    //console.log(newdata);
-    let a2 = newdata.about.orchestrator.store_types
-    // let a1 = master.about.orchestrator.store_types
-    let a1 = master
-    let result = {};
-    let key;
+    let storeTypeEntries = newdata.about.orchestrator.store_types
+    let result = [];
 
-    // First remap the resulting json. This will be the lookup json in the actions repo
-    for (key in a1) {
-      if (a1.hasOwnProperty(key)) {
-        result[key] = a1[key];
+    const names = master.map(storeType => storeType.Name); // Create a list of existing entries by Name
+    for (const entry in storeTypeEntries) {
+      if (!(names.indexOf(storeTypeEntries[entry].Name) >= 0)) { // If the store_type Name is not found, add it to the set
+        result = master.push(storeTypeEntries[entry])
       }
     }
-
-    // Then overlay the new json info.
-    // This will overwrite the object if it exists
-    for (key in a2) {
-      if (a2.hasOwnProperty(key)) {
-        result[key] = a2[key];
-      }
-    }
-    console.log(result)
-    fs.writeFile(libraryFile, JSON.stringify(result, null, 2), (err) => {
+    fs.writeFile(libraryFile, JSON.stringify(master, null, 2), (err) => {
       if (err)
         console.log(err);
       else {

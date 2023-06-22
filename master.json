@@ -1,5 +1,5 @@
-{
-  "A10vThunder": {
+[
+  {
     "Name": "A10vThunder",
     "ShortName": "vThunderU",
     "Capability": "vThunderU",
@@ -9,24 +9,47 @@
       "Discovery": false,
       "Enrollment": false,
       "Remove": true
+    }
+  },
+  {
+    "Name": "AzureKeyVault",
+    "ShortName": "AKV",
+    "Capability": "AKV",
+    "SupportedOperations": {
+      "Add": true,
+      "Create": true,
+      "Discovery": true,
+      "Enrollment": false,
+      "Remove": true
+    }
+  },
+  {
+    "Name": "MyOrchestratorStoreType",
+    "ShortName": "MOST",
+    "Capability": "MOST",
+    "LocalStore": false,
+    "SupportedOperations": {
+      "Add": false,
+      "Create": false,
+      "Discovery": true,
+      "Enrollment": false,
+      "Remove": false
     },
     "Properties": [
       {
-        "StoreTypeId;omitempty": 0,
-        "Name": "protocol",
-        "DisplayName": "Protocol",
+        "Name": "CustomField1",
+        "DisplayName": "CustomField1",
         "Type": "String",
         "DependsOn": "",
-        "DefaultValue": null,
+        "DefaultValue": "default",
         "Required": true
       },
       {
-        "StoreTypeId;omitempty": 0,
-        "Name": "allowInvalidCert",
-        "DisplayName": "Allow Invalid Cert",
-        "Type": "Bool",
+        "Name": "CustomField2",
+        "DisplayName": "CustomField2",
+        "Type": "String",
         "DependsOn": "",
-        "DefaultValue": "false",
+        "DefaultValue": null,
         "Required": true
       }
     ],
@@ -38,13 +61,56 @@
     },
     "StorePathType": "",
     "StorePathValue": "",
-    "PrivateKeyAllowed": "Optional",
+    "PrivateKeyAllowed": "Forbidden",
     "JobProperties": [],
     "ServerRequired": true,
     "PowerShell": false,
-    "BlueprintAllowed": true,
-    "CustomAliasAllowed": "Required"
+    "BlueprintAllowed": false,
+    "CustomAliasAllowed": "Forbidden"
+  },
+  {
+    "Name": "MyOrchestratorStoreType2",
+    "ShortName": "MOST2",
+    "Capability": "MOST2",
+    "LocalStore": false,
+    "SupportedOperations": {
+      "Add": false,
+      "Create": false,
+      "Discovery": true,
+      "Enrollment": false,
+      "Remove": false
+    },
+    "Properties": [
+      {
+        "Name": "CustomField1",
+        "DisplayName": "CustomField1",
+        "Type": "String",
+        "DependsOn": "",
+        "DefaultValue": "default",
+        "Required": true
+      },
+      {
+        "Name": "CustomField2",
+        "DisplayName": "CustomField2",
+        "Type": "String",
+        "DependsOn": "",
+        "DefaultValue": null,
+        "Required": true
+      }
+    ],
+    "EntryParameters": [],
+    "PasswordOptions": {
+      "EntrySupported": false,
+      "StoreRequired": false,
+      "Style": "Default"
+    },
+    "StorePathType": "",
+    "StorePathValue": "",
+    "PrivateKeyAllowed": "Forbidden",
+    "JobProperties": [],
+    "ServerRequired": true,
+    "PowerShell": false,
+    "BlueprintAllowed": false,
+    "CustomAliasAllowed": "Forbidden"
   }
-}
-
-
+]
