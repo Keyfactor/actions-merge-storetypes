@@ -5,8 +5,8 @@ const github = require('@actions/github');
 try {
   // input-file and library-file defined in action metadata file
   // If either of these files is missing, do not proceed.
-  const inputFile = core.getInput('input-file');
-  const libraryFile = core.getInput('library-file');
+  const inputFile = core.getInput('input-file') || 'integration-manifest.json';
+  const libraryFile = core.getInput('library-file') || 'master.json';
   const inputFileExists = fs.existsSync(inputFile);
   const libraryFileExists = fs.existsSync(libraryFile);
   if (inputFileExists && libraryFileExists) {
@@ -20,9 +20,14 @@ try {
 
     const names = master.map(storeType => storeType.Name); // Create a list of existing entries by Name
     for (const entry in storeTypeEntries) {
-      if (!(names.indexOf(storeTypeEntries[entry].Name) >= 0)) { // If the store_type Name is not found, add it to the set
-        result = master.push(storeTypeEntries[entry])
+      if ((names.indexOf(storeTypeEntries[entry].Name) >= 0)) { // Look for existing entries
+        console.log(`${storeTypeEntries[entry].Name} found. Removing old entry before updating`);
+        master.splice(master.indexOf(storeTypeEntries[entry].Name), 1) // Remove old entry
       }
+      console.log(`Adding ${storeTypeEntries[entry].Name}`)
+      master.push(storeTypeEntries[entry]) // Add new or updated entry
+      
+
     }
     fs.writeFile(libraryFile, JSON.stringify(master, null, 2), (err) => {
       if (err)
