@@ -9809,11 +9809,16 @@ try {
     let storeTypeEntries = newdata.about.orchestrator.store_types
     let result = (/* unused pure expression or super */ null && ([]));
 
-    const names = master.map(storeType => storeType.Name); // Create a list of existing entries by Name
+    const names = master.map(storeType => storeType.ShortName); // Create a list of existing entries by Name
     for (const entry in storeTypeEntries) {
-      if (!(names.indexOf(storeTypeEntries[entry].Name) >= 0)) { // If the store_type Name is not found, add it to the set
-        result = master.push(storeTypeEntries[entry])
+      if ((names.indexOf(storeTypeEntries[entry].ShortName) >= 0)) { // Look for existing entries
+        console.log(`${storeTypeEntries[entry].ShortName} found. Removing old entry before updating`);
+        master.splice(master.indexOf(storeTypeEntries[entry].ShortName), 1) // Remove old entry
       }
+      console.log(`Adding ${storeTypeEntries[entry].ShortName}`)
+      master.push(storeTypeEntries[entry]) // Add new or updated entry
+      
+
     }
     fs.writeFile(libraryFile, JSON.stringify(master, null, 2), (err) => {
       if (err)
