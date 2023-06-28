@@ -9796,8 +9796,8 @@ const github = __nccwpck_require__(4366);
 try {
   // input-file and library-file defined in action metadata file
   // If either of these files is missing, do not proceed.
-  const inputFile = core.getInput('input-file');
-  const libraryFile = core.getInput('library-file');
+  const inputFile = core.getInput('input-file') || 'integration-manifest.json';
+  const libraryFile = core.getInput('library-file') || 'master.json';
   const inputFileExists = fs.existsSync(inputFile);
   const libraryFileExists = fs.existsSync(libraryFile);
   if (inputFileExists && libraryFileExists) {
