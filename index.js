@@ -20,9 +20,10 @@ try {
 
     const names = master.map(storeType => storeType.ShortName); // Create a list of existing entries by Name
     for (const entry in storeTypeEntries) {
-      if ((names.indexOf(storeTypeEntries[entry].ShortName) >= 0)) { // Look for existing entries
+      var index = names.indexOf(storeTypeEntries[entry].ShortName) 
+      if ((index) >= 0) { // Look for existing entries
         console.log(`${storeTypeEntries[entry].ShortName} found. Removing old entry before updating`);
-        master.splice(master.indexOf(storeTypeEntries[entry].ShortName), 1) // Remove old entry
+        master.splice(master[index], 1) // Remove old entry
       }
       console.log(`Adding ${storeTypeEntries[entry].ShortName}`)
       master.push(storeTypeEntries[entry]) // Add new or updated entry
